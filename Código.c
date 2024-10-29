@@ -1,5 +1,6 @@
 /*
-Este proyecto tiene por fin...
+Este proyecto tiene como finalidad calcular el aumento de los salarios de los empleados del
+Banco Panameno de Produccion segun sus salarios y anios de servicio
 
 Integrantes:
 David Roa
@@ -8,108 +9,173 @@ Lianeth Gonzalez
 Xavier Cisneros
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 
-int mostrarMenu(){
-	int opcion;
+
+void imprimirDatos()
+{
+	printf("\t\tUniversidad Tecnológica de Panamá\n");
+	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
+	printf("\t       Herramientas de Programación Aplicada I\n");
+	printf("\t\t\t    Proyecto N.1\n\n");
+	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
+	printf("Integrantes: ");
+	printf("Miguel Man\t       8-1032-360\n");
+	printf("\t     David Roa\t       20-14-8042\n");
+	printf("\t     Xavier Cisneros   8-1032-384\n");
+	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
+	printf("\t     Profesora: Janitza Barraza\n\n");
+	printf("\t     Fecha: 26 de octubre de 2024");
+}
+
+void imprimirListado()
+{
+	printf("\n\n\t\t\tBANCO PANAMEÑO DE PRODUCCIÓN\n");
+	printf("\t\t\t LISTADO DE AUMENTO SALARIAL\n\n");
+	printf("\t    NOMBRE\t");
+	printf("CÉDULA\t");
+	printf("  AÑOS\t");
+	printf("   SALARIO");
+	printf("  AUMENTO");
+	printf("  SALARIO");
+	printf("\n\t\t\t\t  SERVICIO");
+}
+
+void validarServicio(int i, int vector[])
+{
+	do
+	{
+		printf("Años de servicio: ");
+		scanf(" %d", &vector[i]);
+		if(vector[i]<1)
+			printf("\t\tError, debes ingresar un entero positivo.\n");
+			
+	}while(vector[i]<1);		
+}
+
+float obtenerAumento()
+{
 	
-	printf("\t\t\t\tMenï¿½\n\n");
-	printf("\t\t1. Presentaciï¿½n\n");
-	printf("\t\t2. Banco Panameï¿½o de Producciï¿½n\n");
+}
+
+float calcularSalNet()
+{
+}
+
+void mostrarSalida(char nombre[][], char cedula[][], int servicio[], float salario[], float aumento, float neto, int cant)
+{
+	int x=0;
+	printf("\t\tBANCO PANAMENO DE PRODUCCION\N\T\TLISTADO DE AUMENTO SALARIAL\n");
+	printf("NOMBRE      CEDULA    ANOS        SALARIO   AUMENTO    SALARIO");
+	printf("                      SERVICIO     BRUTO                  NETO");
+	do
+	{
+		printf("%s      %s           %d          %f       $f           %f", nombre[x],cedula[x],servicio[x],salario[x], funcionaumento,(salario[x]+aumento));
+		
+	}while(x<cant);
+	
+}
+
+void encontrarMayor()
+{
+}
+void encontrarMenor()
+{
+}
+
+int mostrarMenu()
+{
+	int opcion;
+	printf("\t\tUniversidad Tecnológica de Panamá\n");
+	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
+	printf("\t       Herramientas de Programación Aplicada I\n");
+	printf("\t\t\t    Proyecto N.1\n\n");
+	printf("\t\t\t\tMenú\n\n");
+	printf("\t\t1. Presentación\n");
+	printf("\t\t2. Banco Panameño de Producción\n");
 	printf("\t\t3. Salir\n\n");
-	printf("\t\tIntroduce tu opciï¿½n: ");
+	printf("\t\tIntroduce tu opción: ");
 	scanf("%d", &opcion);
 	
 	return opcion;
 }
 
-int main () {
+int main ()
+{
 	setlocale(LC_ALL, "");
-	int opcion, i=0, j=0, tam2;
-	char tam[20];
-	int valores[tam2][4];
-	char nombre[tam2][20], cedula[tam2][20];
+	int opcion, numEMP, i, a[20];
+	float salario[20];
+	char nombre[20][35], cedula[20][15];
 	
-	printf("\t\tUniversidad Tecnolï¿½gica de Panamï¿½\n");
-	printf("\t Facultad de Ingenierï¿½a de Sistemas Computacionales\n");
-	printf("\t       Herramientas de Programaciï¿½n Aplicada I\n");
-	printf("\t\t\t    Proyecto N.1\n\n");
+
 	
 	do{
+		system("cls");
 		opcion = mostrarMenu();
+		system("cls");
+		switch(opcion)
+		{
 		
-		switch (opcion){
-			case 1: {
-				printf("\n\nFUNCIONES y ARREGLOS\n\n");
-				printf("Integrantes: ");
-				printf("Miguel Man\t       8-1032-360\n");
-				printf("\t     David Roa\t       20-14-8042\n");
-				printf("\t     Xavier Cisneros   8-1032-384\n");
-				printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
-				printf("\tProfesora: Janitza Barraza\n\n");
-				printf("\t Fecha: 26 de octubre de 2024");
+			case 1: 
+				imprimirDatos();
+				getchar();
 				break;
-			}
-			case 2:{
-				do{
-					printf("\t\tIngrese la cantidad de registros que desea procesar: ");
-					fgets(tam, sizeof(tam), stdin);
-					
-					tam2 = atoi(tam);
-					
-					if (tam2 < 1) {
-            			printf("\t\tError, debes ingresar un entero positivo.\n");
-           				while (getchar() != '\n'); // Limpiar el buffer
-            			continue;  // Repetir el ciclo
-        			}
+			
+			case 2:
+				do{	
+					system("cls");
+					printf("Ingrese la cantidad de registros que desea procesar: ");
+					scanf(" %d", &numEMP);
+					if (numEMP < 1) 					
+            			printf("Error, debes ingresar un dato valido, entero positivo.");
+            		getchar();
+				
+    			} while (numEMP < 1);
+				
+				for(i=0; i<numEMP; i++)
+				{
+					printf("\nIngrese los datos del empleado %d: ",(i+1));
+					printf("\nNombre: ");
+					gets(nombre[i]);
 
-        			// Limpiar el buffer si es necesario
-        			while (getchar() != '\n');
-    			} while (tam2 < 1);
+					printf("Cédula: ");
+					gets(cedula[i]);
 				
-				printf("Ingrese los siguientes datos: ");
-					for(i; i<tam2; i++){
-						printf("\nNombre: ");
-						fgets(nombre[i], 20, stdin);
+					validarServicio(i, a);
+					getchar();
 					
-						printf("\nCï¿½dula: ");
-						fgets(cedula[i], 20, stdin);
-						
-						for(j=0; j<4; j++){
-							printf("\nAï¿½os ");
-							scanf("%f", &valores[i][j]);
-						}
+					printf("Salario actual: ");
+					scanf(" %f", &salario[i]);
+					getchar();				
+				
 				}
-				
-				
-				printf("\n\n\t\t\tBANCO PANAMEï¿½O DE PRODUCCIï¿½N\n");
-				printf("\t\t\t LISTADO DE AUMENTO SALARIAL\n\n");
-				printf("\t    NOMBRE\t");
-				printf("Cï¿½DULA\t");
-				printf("  Aï¿½OS\t");
-				printf("   SALARIO");
-				printf("  AUMENTO");
-				printf("  SALARIO");
-				printf("\n\t\t\t\t  SERVICIO");
+				for(i=0; i<numEMP; i++)
+				{
+					printf("\nnombre: ");
+					puts(nombre[i]);
+					printf("cedula: ");	
+					puts(cedula[i]);
+					printf("Años de servicio: %d", a[i]);
+					printf("\nSalario actual: %.2f", salario[i]);
+				}
+				getchar();
 				
 				break;
-			}
-			case 3: {
+			
+			case 3: 
+				getchar();
 				break;
-			}
-			default:{
-				printf("Error: Opciï¿½n invï¿½lida\n");
+			
+			default:
+				printf("Error: Opción inválida\nIngrese un valor de 1 a 3\n");
+				getchar();
 				break;
-			}	
 		}
-		
-		if(opcion !=3)
-		printf("\nPresiona Enter para volver al menï¿½...");
-    	getchar();
-    	getchar();
-        
+	if(opcion != 3)
+		printf("\n\nPresiona Enter para volver al menú...");
+	getchar();
 	}while(opcion != 3);
 }
