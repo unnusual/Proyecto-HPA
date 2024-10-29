@@ -13,102 +13,20 @@ Xavier Cisneros
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-
-
-void imprimirDatos()
-{
-	printf("\t\tUniversidad Tecnológica de Panamá\n");
-	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
-	printf("\t       Herramientas de Programación Aplicada I\n");
-	printf("\t\t\t    Proyecto N.1\n\n");
-	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
-	printf("Integrantes: ");
-	printf("Miguel Man\t       8-1032-360\n");
-	printf("\t     David Roa\t       20-14-8042\n");
-	printf("\t     Xavier Cisneros   8-1032-384\n");
-	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
-	printf("\t     Profesora: Janitza Barraza\n\n");
-	printf("\t     Fecha: 26 de octubre de 2024");
-}
-
-void imprimirListado()
-{
-	printf("\n\n\t\t\tBANCO PANAMEÑO DE PRODUCCIÓN\n");
-	printf("\t\t\t LISTADO DE AUMENTO SALARIAL\n\n");
-	printf("\t    NOMBRE\t");
-	printf("CÉDULA\t");
-	printf("  AÑOS\t");
-	printf("   SALARIO");
-	printf("  AUMENTO");
-	printf("  SALARIO");
-	printf("\n\t\t\t\t  SERVICIO");
-}
-
-void validarServicio(int i, int vector[])
-{
-	do
-	{
-		printf("Años de servicio: ");
-		scanf(" %d", &vector[i]);
-		if(vector[i]<1)
-			printf("\t\tError, debes ingresar un entero positivo.\n");
-			
-	}while(vector[i]<1);		
-}
-
-float obtenerAumento()
-{
-	
-}
-
-float calcularSalNet()
-{
-}
-
-void mostrarSalida(char nombre[][], char cedula[][], int servicio[], float salario[], float aumento, float neto, int cant)
-{
-	int x=0;
-	printf("\t\tBANCO PANAMENO DE PRODUCCION\N\T\TLISTADO DE AUMENTO SALARIAL\n");
-	printf("NOMBRE      CEDULA    ANOS        SALARIO   AUMENTO    SALARIO");
-	printf("                      SERVICIO     BRUTO                  NETO");
-	do
-	{
-		printf("%s      %s           %d          %f       $f           %f", nombre[x],cedula[x],servicio[x],salario[x], funcionaumento,(salario[x]+aumento));
-		
-	}while(x<cant);
-	
-}
-
-void encontrarMayor()
-{
-}
-void encontrarMenor()
-{
-}
-
-int mostrarMenu()
-{
-	int opcion;
-	printf("\t\tUniversidad Tecnológica de Panamá\n");
-	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
-	printf("\t       Herramientas de Programación Aplicada I\n");
-	printf("\t\t\t    Proyecto N.1\n\n");
-	printf("\t\t\t\tMenú\n\n");
-	printf("\t\t1. Presentación\n");
-	printf("\t\t2. Banco Panameño de Producción\n");
-	printf("\t\t3. Salir\n\n");
-	printf("\t\tIntroduce tu opción: ");
-	scanf("%d", &opcion);
-	
-	return opcion;
-}
+void imprimirDatos();
+void validarServicio(int i, int vector[]);
+float obtenerAumento();
+float calcularSalNet();
+void encontrarMayor();
+void encontrarMenor();
+int mostrarMenu();
 
 int main ()
 {
 	setlocale(LC_ALL, "");
 	int opcion, numEMP, i, a[20];
 	float salario[20];
-	char nombre[20][35], cedula[20][15];
+	char nombre[20][35], cedula[20][15], nombreMayor[35], nombreMenor[35];
 	
 
 	
@@ -152,7 +70,7 @@ int main ()
 					getchar();				
 				
 				}
-				for(i=0; i<numEMP; i++)
+				for(i=0; i<numEMP; i++) //prueba de almacenaje
 				{
 					printf("\nnombre: ");
 					puts(nombre[i]);
@@ -178,4 +96,65 @@ int main ()
 		printf("\n\nPresiona Enter para volver al menú...");
 	getchar();
 	}while(opcion != 3);
+}
+
+int mostrarMenu()
+{
+	int opcion;
+	printf("\t\tUniversidad Tecnológica de Panamá\n");
+	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
+	printf("\t       Herramientas de Programación Aplicada I\n");
+	printf("\t\t\t    Proyecto N.1\n\n");
+	printf("\t\t\t\tMenú\n\n");
+	printf("\t\t1. Presentación\n");
+	printf("\t\t2. Banco Panameño de Producción\n");
+	printf("\t\t3. Salir\n\n");
+	printf("\t\tIntroduce tu opción: ");
+	scanf("%d", &opcion);
+	
+	return opcion;
+}
+void imprimirDatos()
+{
+	printf("\t\tUniversidad Tecnológica de Panamá\n");
+	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
+	printf("\t       Herramientas de Programación Aplicada I\n");
+	printf("\t\t\t    Proyecto N.1\n\n");
+	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
+	printf("Integrantes: ");
+	printf("Miguel Man\t       8-1032-360\n");
+	printf("\t     David Roa\t       20-14-8042\n");
+	printf("\t     Xavier Cisneros   8-1032-384\n");
+	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
+	printf("\t     Profesora: Janitza Barraza\n\n");
+	printf("\t     Fecha: 26 de octubre de 2024");
+}
+
+void validarServicio(int i, int vector[])
+{
+	do
+	{
+		printf("Años de servicio: ");
+		scanf(" %d", &vector[i]);
+		if(vector[i]<1)
+			printf("\t\tError, debes ingresar un entero positivo.\n");
+			
+	}while(vector[i]<1);		
+}
+
+float obtenerAumento()
+{
+	
+}
+
+float calcularSalNet()
+{
+}
+
+
+void encontrarMayor()
+{
+}
+void encontrarMenor()
+{
 }
