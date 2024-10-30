@@ -13,95 +13,14 @@ Xavier Cisneros
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-
-
-void imprimirDatos()
-{
-	printf("\t\tUniversidad Tecnológica de Panamá\n");
-	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
-	printf("\t       Herramientas de Programación Aplicada I\n");
-	printf("\t\t\t    Proyecto N.1\n\n");
-	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
-	printf("Integrantes: ");
-	printf("Miguel Man\t       8-1032-360\n");
-	printf("\t     David Roa\t       20-14-8042\n");
-	printf("\t     Xavier Cisneros   8-1032-384\n");
-	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
-	printf("\t     Profesora: Janitza Barraza\n\n");
-	printf("\t     Fecha: 26 de octubre de 2024");
-}
-
-void imprimirListado()
-{
-	printf("\n\n\t\t\tBANCO PANAMEÑO DE PRODUCCIÓN\n");
-	printf("\t\t\t LISTADO DE AUMENTO SALARIAL\n\n");
-	printf("\t    NOMBRE\t");
-	printf("CÉDULA\t");
-	printf("  AÑOS\t");
-	printf("   SALARIO");
-	printf("  AUMENTO");
-	printf("  SALARIO");
-	printf("\n\t\t\t\t  SERVICIO");
-}
-
-void validarServicio(int i, int vector[])
-{
-	do
-	{
-		printf("Años de servicio: ");
-		scanf(" %d", &vector[i]);
-		if(vector[i]<1)
-			printf("\t\tError, debes ingresar un entero positivo.\n");
-			
-	}while(vector[i]<1);		
-}
-
-float obtenerAumento()
-{
-	
-}
-
-float calcularSalNet()
-{
-}
-
-void mostrarSalida(char nombre[][], char cedula[][], int servicio[], float salario[], float aumento, float neto, int cant)
-{
-	int x=0;
-	printf("\t\tBANCO PANAMENO DE PRODUCCION\N\T\TLISTADO DE AUMENTO SALARIAL\n");
-	printf("NOMBRE      CEDULA    ANOS        SALARIO   AUMENTO    SALARIO");
-	printf("                      SERVICIO     BRUTO                  NETO");
-	do
-	{
-		printf("%s      %s           %d          %f       $f           %f", nombre[x],cedula[x],servicio[x],salario[x], funcionaumento,(salario[x]+aumento));
-		
-	}while(x<cant);
-	
-}
-
-void encontrarMayor()
-{
-}
-void encontrarMenor()
-{
-}
-
-int mostrarMenu()
-{
-	int opcion;
-	printf("\t\tUniversidad Tecnológica de Panamá\n");
-	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
-	printf("\t       Herramientas de Programación Aplicada I\n");
-	printf("\t\t\t    Proyecto N.1\n\n");
-	printf("\t\t\t\tMenú\n\n");
-	printf("\t\t1. Presentación\n");
-	printf("\t\t2. Banco Panameño de Producción\n");
-	printf("\t\t3. Salir\n\n");
-	printf("\t\tIntroduce tu opción: ");
-	scanf("%d", &opcion);
-	
-	return opcion;
-}
+void imprimirDatos();
+int mostrarMenu();
+void validarServicio(int i, int vector[]);
+float calcularAumento(float salario_bruto, int anios);
+float calcularSalNet();
+void encontrarMayor();
+void encontrarMenor();
+void imprimirInforme(char nombres[][50], char cedulas[][20], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[]);   
 
 int main ()
 {
@@ -178,4 +97,101 @@ int main ()
 		printf("\n\nPresiona Enter para volver al menú...");
 	getchar();
 	}while(opcion != 3);
+}
+void imprimirDatos()
+{
+	printf("\t\tUniversidad Tecnológica de Panamá\n");
+	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
+	printf("\t       Herramientas de Programación Aplicada I\n");
+	printf("\t\t\t    Proyecto N.1\n\n");
+	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
+	printf("Integrantes: ");
+	printf("Miguel Man\t       8-1032-360\n");
+	printf("\t     David Roa\t       20-14-8042\n");
+	printf("\t     Xavier Cisneros   8-1032-384\n");
+	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
+	printf("\t     Profesora: Janitza Barraza\n\n");
+	printf("\t     Fecha: 26 de octubre de 2024");
+}
+int mostrarMenu()
+{
+	int opcion;
+	printf("\t\tUniversidad Tecnológica de Panamá\n");
+	printf("\t Facultad de Ingeniería de Sistemas Computacionales\n");
+	printf("\t       Herramientas de Programación Aplicada I\n");
+	printf("\t\t\t    Proyecto N.1\n\n");
+	printf("\t\t\t\tMenú\n\n");
+	printf("\t\t1. Presentación\n");
+	printf("\t\t2. Banco Panameño de Producción\n");
+	printf("\t\t3. Salir\n\n");
+	printf("\t\tIntroduce tu opción: ");
+	scanf("%d", &opcion);
+	
+	return opcion;
+}
+void validarServicio(int i, int vector[])
+{
+	do
+	{
+		printf("Años de servicio: ");
+		scanf(" %d", &vector[i]);
+		if(vector[i]<1)
+			printf("\t\tError, debes ingresar un entero positivo.\n");
+			
+	}while(vector[i]<1);		
+}
+float calcularAumento(float salario_bruto, int anios) 
+{
+	float porcentaje;
+	if(anios >= 1)
+	{
+    		if ((salario_bruto >= 100) && (salario_bruto < 300))
+        		porcentaje = (anios > 3) ? 0.03 : 0.02;
+    		else if ((salario_bruto >= 300) && (salario_bruto < 500))
+			porcentaje = (anios > 3) ? 0.06 : 0.04;
+    		else if ((salario_bruto >= 500) && (salario_bruto < 800))
+			porcentaje = (anios > 3) ? 0.08 : 0.07;
+    		else if ((salario_bruto >= 800) && (salario_bruto < 1000)) 
+			porcentaje = (anios > 3) ? 0.10 : 0.09;
+    		else if ((salario_bruto >= 1000) && (salario_bruto < 2000) && (anios > 5)) 
+       			porcentaje = 0.13;
+    		else if ((salario_bruto >= 2000) && (anios > 10)) 
+       			porcentaje = 0.15;
+		return salario_bruto * porcentaje;
+	}
+	else
+		return 0;
+}
+
+float calcularSalNet()
+{
+}
+void encontrarMayor()
+{
+}
+void encontrarMenor()
+{
+}
+void imprimirInforme(char nombres[][50], char cedulas[][20], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[]) 
+{
+    float totalBruto = 0.0, totalNeto = 0.0;
+    int indiceMayor, indiceMenor;
+
+    for (int i = 0; i < NUM_EMPLEADOS; i++) {
+        totalBruto += salario_bruto[i];
+        totalNeto += salario_neto[i];
+    }
+
+    calcularMayorMenor(salario_neto, &indiceMayor, &indiceMenor);
+
+    printf("\n\t\tBANCO PANAMEÑO DE PRODUCCION\n");
+    printf("\t\tLISTADO DE AUMENTO SALARIAL\n\n");
+    printf("NOMBRE\t\tCEDULA\t\tAÑOS\tSALARIO BRUTO\tAUMENTO\tSALARIO NETO\n");
+    for (int i = 0; i < NUM_EMPLEADOS; i++) {
+        printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t%.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], aumentos[i], salario_neto[i]);
+    }
+
+    printf("\nTOTALES:\t\t\t\t%.2f\t%.2f\n", totalBruto, totalNeto);
+    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", nombres[indiceMayor], salario_neto[indiceMayor]);
+    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", nombres[indiceMenor], salario_neto[indiceMenor]);
 }
