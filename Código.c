@@ -9,41 +9,50 @@ Lianeth Gonzalez
 Xavier Cisneros
 */
 
+// librerias a utilizar
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+
+// Declaracion de funciones a utilizar
 void imprimirDatos();
 int mostrarMenu();
 void validarServicio(int i, int vector[]);
 float calcularAumento(float salario_bruto, int anios);
 float calcularSalNet(float salario_bruto, int anios);
-int encontrarMayor(int arr[], int size, char nombre[][35], char empleado[]);
-int encontrarMenor(int arr[], int size, char nombre[][35], char empleado[]);
+int encontrarMayor(int arr[], int size);
+int encontrarMenor(int arr[], int size);
 void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n);   
 
+// Funcion principal, contiene un switch case para alternar las opciones del menu
 int main ()
 {
 	setlocale(LC_ALL, "");
+	// Declaracion de variables
 	int opcion, numEMP, i, aservicio[20];
 	float salario[20], neto[20], aumentos[20] ;
 	char nombre[20][35], cedula[20][15];
 	
 
-	
+	// Se utiliza un do while para que el menu siempre este presente
+	// Solamente termina si la opcion elegida es 3
 	do{
 		system("cls");
 		opcion = mostrarMenu();
 		system("cls");
 		switch(opcion)
 		{
-		
+			// caso 1 imprime los datos del grupo del proyecto
 			case 1: 
 				imprimirDatos();
 				getchar();
 				break;
-			
+				
+			// caso 2 se encarga de la impresion de la lista de empleados
 			case 2:
+				/* Primero preguntamos cuantos empleados vamos a registrar, usando 
+				un do while para que se repita en caso de que el valor ingresado no sea entero positivo*/
 				do{	
 					system("cls");
 					printf("Ingrese la cantidad de registros que desea procesar: ");
@@ -54,6 +63,9 @@ int main ()
 				
     			} while (numEMP < 1);
 				
+				/* Despues en el for se piden los datos del empleado, cada iteracion del for siendo
+				1 empleado de la cantidad ingresada en numEMP. Estos datos seran almacenados en arreglos
+				lo que nos permite tener un orden y poder manipularlos de forma eficiente*/
 				for(i=0; i<numEMP; i++)
 				{
 					printf("\nIngrese los datos del empleado %d: ",(i+1));
@@ -70,14 +82,18 @@ int main ()
 					scanf(" %f", &salario[i]);
 					getchar();					
 				}
+				/* Despues de ingresar todos los datos y salir del for, llamamos a la 
+				funcion de salida que imprimira el listado completo*/
 				printINF(nombre, cedula, aservicio, salario, neto, aumentos, numEMP);
 				getchar();
 				break;
 			
+			// En el caso 3 se sale del switch case y se sale del do while al ser la opcion de salida del programa
 			case 3: 
 				getchar();
 				break;
 			
+			//Como default tenemos un mensaje de error para ingresar las opciones validas
 			default:
 				printf("Error: Opción inválida\nIngrese un valor de 1 a 3\n");
 				getchar();
@@ -88,6 +104,8 @@ int main ()
 	getchar();
 	}while(opcion != 3);
 }
+
+//Funcion que imprime el listado de datos del caso 1
 void imprimirDatos()
 {
 	printf("\t\tUniversidad Tecnológica de Panamá\n");
@@ -95,14 +113,16 @@ void imprimirDatos()
 	printf("\t       Herramientas de Programación Aplicada I\n");
 	printf("\t\t\t    Proyecto N.1\n\n");
 	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
-	printf("\t\tIntegrantes: ");
+	printf("Integrantes: ");
 	printf("Miguel Man\t       8-1032-360\n");
-	printf("\t\t\t     David Roa\t       20-14-8042\n");
-	printf("\t\t\t     Xavier Cisneros   8-1032-384\n");
-	printf("\t\t\t     Lianeth Gonzalez  8-1032-f323\n\n");
-	printf("\t\t     Profesora: Janitza Barraza\n\n");
-	printf("\t\t     Fecha: 30 de octubre de 2024");
+	printf("\t     David Roa\t       20-14-8042\n");
+	printf("\t     Xavier Cisneros   8-1032-384\n");
+	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
+	printf("\t     Profesora: Janitza Barraza\n\n");
+	printf("\t     Fecha: 26 de octubre de 2024");
 }
+/*Funcion que imprime el menu que aparece al iniciar el programa,
+a su vez retorna la opcion a elegir*/
 int mostrarMenu()
 {
 	int opcion;
@@ -120,6 +140,9 @@ int mostrarMenu()
 	return opcion;
 }
 
+/*Funcion que valida que el dato ingresado sea un numero entero positivo,
+permite que a pesar de poder ingresarse caracteres, solo prosiga si se ingresa
+un valor numerico entero y posittivo*/
 void validarServicio(int i, int vector[])
 {
     int x;
@@ -136,6 +159,9 @@ void validarServicio(int i, int vector[])
     } while (x != 1 || vector[i] < 1);
 }
 
+/*Funcion que calculara el aumento correspondiente al salario bruto y años de 
+servicio ingresado de acuerdo a lo especificado, si el valor de alguno de estos no se
+encuentra en el enunciado, el valor del aumento sera 0*/
 float calcularAumento(float salario_bruto, int anios) 
 {
 	float porcentaje = 0.0;
@@ -159,6 +185,8 @@ float calcularAumento(float salario_bruto, int anios)
 		return porcentaje;
 }
 
+/*Funcion que calcula el salario neto apartir del salario bruto
+y el aumento calculado en la funcion anterior*/
 float calcularSalNet(float salario_bruto, int anios)
 {
 	float salNet;
@@ -166,30 +194,31 @@ float calcularSalNet(float salario_bruto, int anios)
 	return salNet;
 }
 
-// Función para encontrar el valor máximo
-int encontrarMayor(float arr[], int size, char nombre[][35], char empleado[]) 
+/* Función para encontrar el indice del valor máximo
+este nos permitira imprimir el nombre y el valor del sueldo neto
+correspondiente*/
+int encontrarMayor(float arr[], int size) 
 {
     float max = 0, x;
     for (int i = 0; i < size; i++)
 	 {
         if (max < arr[i])
     	{
-        	strcpy(empleado,nombre[i]);
             max = arr[i];
             x=i;
         }
     }
     return x;
 }
-// Función para encontrar el valor minimo
-int encontrarMenor(float arr[], int size, char nombre[][35], char empleado[]) 
+/*Función para encontrar el indice del valor minimo, este nos permitira 
+imprimir el nombre y el valor del sueldo neto correspondiente*/
+int encontrarMenor(float arr[], int size) 
 {
     float min = arr[0], x;
     for (int i = 0; i < size; i++)
 	 {
         if (arr[i] <= min)
         {
-        	strcpy(empleado,nombre[i]);
             min = arr[i];
             x=i;
         }
@@ -198,27 +227,27 @@ int encontrarMenor(float arr[], int size, char nombre[][35], char empleado[])
 }
 
 
-
+//Funcion de salida del listado con todos los datos
 void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n)
 {
     float totalBruto = 0.0, totalNeto = 0.0, x[20];
 	int a, b; 
 	char mayor[35], menor[35];
     
-    printf("\n\t\tBANCO PANAMEÑO DE PRODUCCION\n");
-    printf("\t\tLISTADO DE AUMENTO SALARIAL\n\n");
-    printf("NOMBRE\t\tCEDULA\t\tAÑOS\tSALARIO BRUTO\tAUMENTO\tSALARIO NETO\n");
+    printf("\n\t\t\tBANCO PANAMEÑO DE PRODUCCION\n");
+    printf("\t\t\t LISTADO DE AUMENTO SALARIAL\n\n");
+    printf("NOMBRE\t\tCEDULA\t\tAÑOS\tSALARIO BRUTO\t AUMENTO\tSALARIO NETO\n");
     for (int i = 0; i < n; i++) 
 	{
 		totalBruto += salario_bruto[i];
 		x[i] = calcularSalNet(salario_bruto[i],aservicio[i]);
         totalNeto += x[i];
-        printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t   %.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], calcularAumento(salario_bruto[i],aservicio[i]), x[i]);
-        a= encontrarMayor(x,n,nombres,mayor);
-		b= encontrarMenor(x,n,nombres,menor);
-        
+        printf("%-10s\t%-10s\t%d\t%.2f\t         %.2f\t       %.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], calcularAumento(salario_bruto[i],aservicio[i]), x[i]);
+    
     }
-    printf("\nTOTALES:\t\t\t\t%.2f\t\t\t%.2f\n", totalBruto, totalNeto);
-    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", mayor,x[a] );
-    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", menor,x[b] );
+    a= encontrarMayor(x,n);
+	b= encontrarMenor(x,n);
+    printf("\nTOTALES:\t\t\t\t%.2f\t\t\t     %.2f\n", totalBruto, totalNeto);
+    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", nombres[a],x[a] );
+    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", nombres[b],x[b] );
 }
