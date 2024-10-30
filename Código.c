@@ -20,14 +20,14 @@ float calcularAumento(float salario_bruto, int anios);
 float calcularSalNet(float salario_bruto, int anios);
 void encontrarMayor();
 void encontrarMenor();
-void imprimirInforme(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n);   
+void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n);   
 
 int main ()
 {
 	setlocale(LC_ALL, "");
 	int opcion, numEMP, i, aservicio[20];
-	float salario[20], neto[20], aumentos[20];
-	char nombre[20][35], cedula[20][15], mayor[35], menor[35];
+	float salario[20], neto[20], aumentos[20] ;
+	char nombre[20][35], cedula[20][15];
 	
 
 	
@@ -68,12 +68,10 @@ int main ()
 					
 					printf("Salario actual: ");
 					scanf(" %f", &salario[i]);
-					getchar();				
-				
+					getchar();					
 				}
-				imprimirInforme(nombre, cedula, aservicio, salario, neto, aumentos, numEMP);
+				printINF(nombre, cedula, aservicio, salario, neto, aumentos, numEMP);
 				getchar();
-				
 				break;
 			
 			case 3: 
@@ -121,20 +119,26 @@ int mostrarMenu()
 	
 	return opcion;
 }
+
 void validarServicio(int i, int vector[])
 {
-	do
-	{
-		printf("Años de servicio: ");
-		scanf(" %d", &vector[i]);
-		if(vector[i]<1)
-			printf("\t\tError, debes ingresar un entero positivo.\n");
-			
-	}while(vector[i]<1);		
+    int x;
+    do {
+        printf("Años de servicio: ");
+        x = scanf("%d", &vector[i]);
+
+        if (x != 1 || vector[i] < 1)
+		{
+            printf("\t\tError, debes ingresar un número entero positivo.\n");
+            while(getchar() != '\n');
+        }
+
+    } while (x != 1 || vector[i] < 1);
 }
+
 float calcularAumento(float salario_bruto, int anios) 
 {
-	float porcentaje;
+	float porcentaje = 0.0;
 	if(anios >= 1)
 	{
     		if ((salario_bruto >= 100) && (salario_bruto < 300))
@@ -152,7 +156,7 @@ float calcularAumento(float salario_bruto, int anios)
 		return salario_bruto * porcentaje;
 	}
 	else
-		return 0;
+		return porcentaje;
 }
 
 float calcularSalNet(float salario_bruto, int anios)
@@ -161,34 +165,36 @@ float calcularSalNet(float salario_bruto, int anios)
 	salNet= salario_bruto + calcularAumento(salario_bruto, anios);
 	return salNet;
 }
+
 void encontrarMayor()
 {
 	
 }
+
 void encontrarMenor()
 {
 }
-void imprimirInforme(char nombres[][50], char cedulas[][20], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n) 
+
+void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n)
 {
-    float totalBruto = 0.0, totalNeto = 0.0;
-    int indiceMayor, indiceMenor;
-
-    for (int i = 0; i < n; i++) 
-	{
-        totalBruto += salario_bruto[i];
-        totalNeto += salario_neto[i];
-    }
-
- 
-
+    float totalBruto = 0.0, totalNeto = 0.0, x; 
+	char mayor[35], menor[35];
+    
     printf("\n\t\tBANCO PANAMEÑO DE PRODUCCION\n");
     printf("\t\tLISTADO DE AUMENTO SALARIAL\n\n");
     printf("NOMBRE\t\tCEDULA\t\tAÑOS\tSALARIO BRUTO\tAUMENTO\tSALARIO NETO\n");
-    for (int i = 0; i < n; i++) {
-        printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t%.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], aumentos[i], salario_neto[i]);
+    for (int i = 0; i < n; i++) 
+	{
+		encontrarMayor();
+		encontrarMenor();
+		totalBruto += salario_bruto[i];
+		x = calcularSalNet(salario_bruto[i],aservicio[i]);
+        totalNeto += x;
+        printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t   %.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], calcularAumento(salario_bruto[i],aservicio[i]), x);
+        
+        
     }
-
-    printf("\nTOTALES:\t\t\t\t%.2f\t%.2f\n", totalBruto, totalNeto);
-    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", nombres[indiceMayor], salario_neto[indiceMayor]);
-    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", nombres[indiceMenor], salario_neto[indiceMenor]);
+    printf("\nTOTALES:\t\t\t\t%.2f\t\t\t%.2f\n", totalBruto, totalNeto);
+    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", mayor );
+    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", menor );
 }
