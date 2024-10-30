@@ -18,8 +18,8 @@ int mostrarMenu();
 void validarServicio(int i, int vector[]);
 float calcularAumento(float salario_bruto, int anios);
 float calcularSalNet(float salario_bruto, int anios);
-void encontrarMayor();
-void encontrarMenor();
+int encontrarMayor(int arr[], int size, char nombre[][35], char empleado[]);
+int encontrarMenor(int arr[], int size, char nombre[][35], char empleado[]);
 void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n);   
 
 int main ()
@@ -166,18 +166,43 @@ float calcularSalNet(float salario_bruto, int anios)
 	return salNet;
 }
 
-void encontrarMayor()
+// Función para encontrar el valor máximo
+int encontrarMayor(float arr[], int size, char nombre[][35], char empleado[]) 
 {
-	
+    float max = 0, x;
+    for (int i = 0; i < size; i++)
+	 {
+        if (max < arr[i])
+    	{
+        	strcpy(empleado,nombre[i]);
+            max = arr[i];
+            x=i;
+        }
+    }
+    return x;
+}
+// Función para encontrar el valor minimo
+int encontrarMenor(float arr[], int size, char nombre[][35], char empleado[]) 
+{
+    float min = arr[0], x;
+    for (int i = 0; i < size; i++)
+	 {
+        if (arr[i] <= min)
+        {
+        	strcpy(empleado,nombre[i]);
+            min = arr[i];
+            x=i;
+        }
+    }
+    return x;
 }
 
-void encontrarMenor()
-{
-}
+
 
 void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n)
 {
-    float totalBruto = 0.0, totalNeto = 0.0, x; 
+    float totalBruto = 0.0, totalNeto = 0.0, x[20];
+	int a, b; 
 	char mayor[35], menor[35];
     
     printf("\n\t\tBANCO PANAMEÑO DE PRODUCCION\n");
@@ -185,16 +210,15 @@ void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float sal
     printf("NOMBRE\t\tCEDULA\t\tAÑOS\tSALARIO BRUTO\tAUMENTO\tSALARIO NETO\n");
     for (int i = 0; i < n; i++) 
 	{
-		encontrarMayor();
-		encontrarMenor();
 		totalBruto += salario_bruto[i];
-		x = calcularSalNet(salario_bruto[i],aservicio[i]);
-        totalNeto += x;
-        printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t   %.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], calcularAumento(salario_bruto[i],aservicio[i]), x);
-        
+		x[i] = calcularSalNet(salario_bruto[i],aservicio[i]);
+        totalNeto += x[i];
+        printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t   %.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], calcularAumento(salario_bruto[i],aservicio[i]), x[i]);
+        a= encontrarMayor(x,n,nombres,mayor);
+		b= encontrarMenor(x,n,nombres,menor);
         
     }
     printf("\nTOTALES:\t\t\t\t%.2f\t\t\t%.2f\n", totalBruto, totalNeto);
-    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", mayor );
-    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", menor );
+    printf("EMPLEADO DE MAYOR SUELDO: %s\t%.2f\n", mayor,x[a] );
+    printf("EMPLEADO DE MENOR SUELDO: %s\t%.2f\n", menor,x[b] );
 }
