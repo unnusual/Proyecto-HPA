@@ -13,18 +13,21 @@ Xavier Cisneros
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+
+//declaración de funciones a utilizar, buena práctica
 void imprimirDatos();
 int mostrarMenu();
 void validarServicio(int i, int vector[]);
 float calcularAumento(float salario_bruto, int anios);
 float calcularSalNet(float salario_bruto, int anios);
-void encontrarMayor();
-void encontrarMenor();
+int encontrarMaximo(float arr[], int size);
+int encontrarMinimo(float arr[], int size);
 void printINF(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n);   
 
 int main ()
 {
-	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, "");//permite el uso del acento y ñ en el español, adopta el lenguaje de la máquina
+	//declaración de variables
 	int opcion, numEMP, i, aservicio[20];
 	float salario[20], neto[20], aumentos[20] ;
 	char nombre[20][35], cedula[20][15];
@@ -32,14 +35,14 @@ int main ()
 
 	
 	do{
-		system("cls");
-		opcion = mostrarMenu();
+		system("cls");//limpia la pantalla
+		opcion = mostrarMenu();//muestra el menú de opciones 
 		system("cls");
 		switch(opcion)
 		{
 		
 			case 1: 
-				imprimirDatos();
+				imprimirDatos();//muestra en pantalla la información del proyecto, integrantes, facilitadora, fecha de entrega
 				getchar();
 				break;
 			
@@ -48,11 +51,11 @@ int main ()
 					system("cls");
 					printf("Ingrese la cantidad de registros que desea procesar: ");
 					scanf(" %d", &numEMP);
-					if (numEMP < 1) 					
+					if (numEMP < 1) 					//comprueba que el número sea mayor que cero, entero, y que no sea un caracter
             			printf("Error, debes ingresar un dato valido, entero positivo.");
             		getchar();
 				
-    			} while (numEMP < 1);
+    			} while (numEMP < 1);//repite el ciclo mientras ingrese un valor no permitido
 				
 				for(i=0; i<numEMP; i++)
 				{
@@ -70,7 +73,7 @@ int main ()
 					scanf(" %f", &salario[i]);
 					getchar();					
 				}
-				printINF(nombre, cedula, aservicio, salario, neto, aumentos, numEMP);
+				printINF(nombre, cedula, aservicio, salario, neto, aumentos, numEMP); //tabla con la información de la producción
 				getchar();
 				break;
 			
@@ -141,7 +144,7 @@ float calcularAumento(float salario_bruto, int anios)
 	float porcentaje = 0.0;
 	if(anios >= 1)
 	{
-    		if ((salario_bruto >= 100) && (salario_bruto < 300))
+    		if ((salario_bruto >= 100) && (salario_bruto < 300))//condiones para el aumento del salario de cada persona según su salario bruto y años de servicio
         		porcentaje = (anios > 3) ? 0.03 : 0.02;
     		else if ((salario_bruto >= 300) && (salario_bruto < 500))
 			porcentaje = (anios > 3) ? 0.06 : 0.04;
