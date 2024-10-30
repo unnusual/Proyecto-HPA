@@ -97,13 +97,13 @@ void imprimirDatos()
 	printf("\t       Herramientas de Programación Aplicada I\n");
 	printf("\t\t\t    Proyecto N.1\n\n");
 	printf("\n\t\t\tFUNCIONES y ARREGLOS\n\n");
-	printf("Integrantes: ");
+	printf("\t\tIntegrantes: ");
 	printf("Miguel Man\t       8-1032-360\n");
-	printf("\t     David Roa\t       20-14-8042\n");
-	printf("\t     Xavier Cisneros   8-1032-384\n");
-	printf("\t     Lianeth Gonzalez  8-1032-f323\n\n");
-	printf("\t     Profesora: Janitza Barraza\n\n");
-	printf("\t     Fecha: 26 de octubre de 2024");
+	printf("\t\t\t     David Roa\t       20-14-8042\n");
+	printf("\t\t\t     Xavier Cisneros   8-1032-384\n");
+	printf("\t\t\t     Lianeth Gonzalez  8-1032-f323\n\n");
+	printf("\t\t     Profesora: Janitza Barraza\n\n");
+	printf("\t\t     Fecha: 30 de octubre de 2024");
 }
 int mostrarMenu()
 {
