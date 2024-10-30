@@ -17,17 +17,17 @@ void imprimirDatos();
 int mostrarMenu();
 void validarServicio(int i, int vector[]);
 float calcularAumento(float salario_bruto, int anios);
-float calcularSalNet();
+float calcularSalNet(float salario_bruto, int anios);
 void encontrarMayor();
 void encontrarMenor();
-void imprimirInforme(char nombres[][50], char cedulas[][20], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[]);   
+void imprimirInforme(char nombres[][35], char cedulas[][15], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n);   
 
 int main ()
 {
 	setlocale(LC_ALL, "");
-	int opcion, numEMP, i, a[20];
-	float salario[20];
-	char nombre[20][35], cedula[20][15];
+	int opcion, numEMP, i, aservicio[20];
+	float salario[20], neto[20], aumentos[20];
+	char nombre[20][35], cedula[20][15], mayor[35], menor[35];
 	
 
 	
@@ -63,7 +63,7 @@ int main ()
 					printf("Cédula: ");
 					gets(cedula[i]);
 				
-					validarServicio(i, a);
+					validarServicio(i, aservicio);
 					getchar();
 					
 					printf("Salario actual: ");
@@ -71,15 +71,7 @@ int main ()
 					getchar();				
 				
 				}
-				for(i=0; i<numEMP; i++)
-				{
-					printf("\nnombre: ");
-					puts(nombre[i]);
-					printf("cedula: ");	
-					puts(cedula[i]);
-					printf("Años de servicio: %d", a[i]);
-					printf("\nSalario actual: %.2f", salario[i]);
-				}
+				imprimirInforme(nombre, cedula, aservicio, salario, neto, aumentos, numEMP);
 				getchar();
 				
 				break;
@@ -163,31 +155,36 @@ float calcularAumento(float salario_bruto, int anios)
 		return 0;
 }
 
-float calcularSalNet()
+float calcularSalNet(float salario_bruto, int anios)
 {
+	float salNet;
+	salNet= salario_bruto + calcularAumento(salario_bruto, anios);
+	return salNet;
 }
 void encontrarMayor()
 {
+	
 }
 void encontrarMenor()
 {
 }
-void imprimirInforme(char nombres[][50], char cedulas[][20], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[]) 
+void imprimirInforme(char nombres[][50], char cedulas[][20], int aservicio[], float salario_bruto[], float salario_neto[], float aumentos[], int n) 
 {
     float totalBruto = 0.0, totalNeto = 0.0;
     int indiceMayor, indiceMenor;
 
-    for (int i = 0; i < NUM_EMPLEADOS; i++) {
+    for (int i = 0; i < n; i++) 
+	{
         totalBruto += salario_bruto[i];
         totalNeto += salario_neto[i];
     }
 
-    calcularMayorMenor(salario_neto, &indiceMayor, &indiceMenor);
+ 
 
     printf("\n\t\tBANCO PANAMEÑO DE PRODUCCION\n");
     printf("\t\tLISTADO DE AUMENTO SALARIAL\n\n");
     printf("NOMBRE\t\tCEDULA\t\tAÑOS\tSALARIO BRUTO\tAUMENTO\tSALARIO NETO\n");
-    for (int i = 0; i < NUM_EMPLEADOS; i++) {
+    for (int i = 0; i < n; i++) {
         printf("%-10s\t%-10s\t%d\t%.2f\t\t%.2f\t%.2f\n", nombres[i], cedulas[i], aservicio[i], salario_bruto[i], aumentos[i], salario_neto[i]);
     }
 
